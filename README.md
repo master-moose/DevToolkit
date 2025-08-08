@@ -1,6 +1,6 @@
 # Dev Toolkit
 
-A zero-backend, static, in-browser collection of useful developer utilities. Works offline (via Service Worker) and is ideal for GitHub Pages.
+A zero-backend, static, in-browser collection of useful developer utilities. Works offline (via Service Worker).
 
 ## Features
 - Code Prettifier (Prettier via CDN)
@@ -32,17 +32,6 @@ DevToolkit/
 ## Getting Started
 - Open `index.html` in your browser. Everything runs locally.
 - Optional: use a simple static server for local dev (e.g., VSCode Live Server). Not required.
-
-## Deploy to GitHub Pages
-1. Create a new GitHub repository and push this folder.
-2. In GitHub repo Settings → Pages → Source: `Deploy from a branch`, select `main` and `/ (root)`.
-3. Save. Your site will be live at `https://<user>.github.io/<repo>/`.
-
-If deploying to a subpath, links are relative by default. Service Worker is registered from the site root.
-
-## Buy Me a Coffee / AdSense
-- Update the BuyMeACoffee URL in `index.html`.
-- For AdSense, replace the placeholder block in the Home sidebar with your snippet.
 
 ## SEO & PWA
 - Minimal SEO meta tags included in `index.html`.

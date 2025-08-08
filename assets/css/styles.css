@@ -1,0 +1,70 @@
+/* Dev Toolkit minimal custom styles alongside Tailwind CDN (no @apply) */
+* { box-sizing: border-box; }
+
+:root { --ring: 0 0 0 3px rgba(14,165,233,0.35); }
+
+.btn { display:inline-flex; align-items:center; justify-content:center; gap:.5rem; padding:.5rem .75rem; border-radius:.375rem; font-size:.875rem; font-weight:600; background:#0ea5e9; color:#fff; border:0; cursor:pointer; }
+.btn:hover { background:#0284c7; }
+.btn:active { background:#0369a1; }
+.btn:disabled { opacity:.5; cursor:not-allowed; }
+
+.btn-secondary { display:inline-flex; align-items:center; justify-content:center; gap:.5rem; padding:.5rem .75rem; border-radius:.375rem; font-size:.875rem; font-weight:600; background:transparent; color:inherit; border:1px solid #e2e8f0; cursor:pointer; }
+.btn-secondary:hover { background:#f8fafc; }
+.dark .btn-secondary { border-color:#334155; }
+.dark .btn-secondary:hover { background:#0f172a; }
+
+.input { width:100%; border:1px solid #e2e8f0; background:#fff; color:#0f172a; border-radius:.375rem; padding:.5rem .75rem; font-size:.875rem; outline:none; }
+.input:focus { box-shadow: var(--ring); border-color:#bae6fd; }
+.dark .input { background:#0b1220; color:#e2e8f0; border-color:#334155; }
+
+.textarea { width:100%; height:20rem; border:1px solid #e2e8f0; background:#fff; color:#0f172a; border-radius:.375rem; padding:.75rem; font-size:.875rem; font-family: ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace; line-height:1.3; outline:none; }
+.textarea:focus { box-shadow: var(--ring); border-color:#bae6fd; }
+.dark .textarea { background:#0b1220; color:#e2e8f0; border-color:#334155; }
+
+.card { border:1px solid #e2e8f0; border-radius:.5rem; padding:1rem; background:rgba(255,255,255,0.7); transition: box-shadow .15s ease; }
+.card:hover { box-shadow:0 4px 12px rgba(2,6,23,0.06); }
+.dark .card { background:rgba(2,6,23,0.7); border-color:#0f172a; }
+
+.tool-title { font-size:1.25rem; font-weight:600; margin-bottom:1rem; }
+
+.nav-link { padding:.25rem .5rem; border-radius:.375rem; display:inline-block; }
+.nav-link:hover { background:#f1f5f9; }
+.dark .nav-link:hover { background:#0f172a; }
+.nav-link.active { background:#e0f2fe; color:#0369a1; }
+.dark .nav-link.active { background:#0f172a; color:#7dd3fc; }
+
+.error-text { margin-top:.5rem; font-size:.875rem; color:#dc2626; }
+.dark .error-text { color:#f87171; }
+
+.color-swatch { border:1px solid #e2e8f0; border-radius:.5rem; overflow:hidden; cursor:pointer; user-select:none; }
+.dark .color-swatch { border-color:#0f172a; }
+.color-swatch .meta { padding:.75rem; font-size:.875rem; display:flex; align-items:center; justify-content:space-between; }
+
+.checkbox { width:1rem; height:1rem; border-radius:.25rem; border:1px solid #cbd5e1; accent-color:#0ea5e9; }
+
+.route { display:block; }
+.route.hidden { display:none; }
+
+/* Markdown preview defaults */
+#mdPreview h1 { font-size:1.75rem; margin:.75rem 0; }
+#mdPreview h2 { font-size:1.5rem; margin:.75rem 0; }
+#mdPreview h3 { font-size:1.25rem; margin:.5rem 0; }
+#mdPreview p { margin:.5rem 0; }
+#mdPreview ul { list-style:disc; padding-left:1.25rem; }
+#mdPreview ol { list-style:decimal; padding-left:1.25rem; }
+#mdPreview code { background:#e2e8f0; padding:.1rem .3rem; border-radius:.25rem; }
+.dark #mdPreview code { background:#0f172a; }
+#mdPreview pre { background:#0b1220; color:#e2e8f0; padding:.75rem; border-radius:.375rem; overflow:auto; }
+
+/* Unified toolbar for Markdown editor */
+.toolbar { display:flex; align-items:center; gap:.5rem; padding:.375rem; border:1px solid #e2e8f0; border-radius:.5rem; background:#ffffff; overflow:auto; }
+.dark .toolbar { border-color:#334155; background:#0b1220; }
+.toolbar .group { display:inline-flex; align-items:stretch; border:1px solid #e2e8f0; border-radius:.375rem; overflow:hidden; background:transparent; }
+.dark .toolbar .group { border-color:#334155; }
+.toolbar .button { appearance:none; border:0; background:transparent; color:inherit; font-size:.875rem; padding:.4rem .6rem; cursor:pointer; }
+.toolbar .button + .button { border-left:1px solid #e2e8f0; }
+.dark .toolbar .button + .button { border-left:1px solid #334155; }
+.toolbar .button:hover { background:#f8fafc; }
+.dark .toolbar .button:hover { background:#0f172a; }
+.toolbar .spacer { flex:1 1 auto; }
+

@@ -1,0 +1,295 @@
+<!doctype html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Dev Toolkit – Web Developer Utilities</title>
+    <meta name="description" content="Dev Toolkit: an all-in-one, zero-backend collection of web-based developer utilities. Works offline and runs fully in your browser." />
+    <meta name="keywords" content="developer tools, json prettifier, code formatter, uuid, markdown, color palette, timestamp converter, sql in clause" />
+    <meta name="theme-color" content="#0ea5e9" />
+
+    <meta property="og:title" content="Dev Toolkit – Web Developer Utilities" />
+    <meta property="og:description" content="All-in-one frontend utilities for developers. Works offline." />
+    <meta property="og:type" content="website" />
+
+    <link rel="icon" type="image/svg+xml" href="./assets/icons/favicon.svg" />
+
+    <!-- Tailwind CSS via CDN with Typography plugin for Markdown preview -->
+    <script src="https://cdn.tailwindcss.com?plugins=typography"></script>
+    <script>
+      window.tailwind = window.tailwind || {};
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            colors: {
+              brand: {
+                DEFAULT: '#0ea5e9',
+                dark: '#0284c7'
+              }
+            }
+          }
+        }
+      };
+    </script>
+
+    <!-- External libraries (cached by Service Worker after first load) -->
+    <!-- Prettier Standalone + Parsers (JS/HTML/CSS/JSON/MD) -->
+    <script defer src="https://cdn.jsdelivr.net/npm/prettier@3.3.3/standalone.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/prettier@3.3.3/plugins/babel.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/prettier@3.3.3/plugins/estree.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/prettier@3.3.3/plugins/html.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/prettier@3.3.3/plugins/postcss.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/prettier@3.3.3/plugins/typescript.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/prettier@3.3.3/plugins/markdown.js"></script>
+
+    <!-- Markdown rendering + sanitization -->
+    <script defer src="https://cdn.jsdelivr.net/npm/marked@12.0.2/marked.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/dompurify@3.1.6/dist/purify.min.js"></script>
+
+    <!-- App Scripts -->
+    <link rel="stylesheet" href="./assets/css/styles.css" />
+    <script defer src="./assets/js/utils.js"></script>
+    <script defer src="./assets/js/app.js"></script>
+    <script defer src="./assets/js/tools.js"></script>
+  </head>
+  <body class="bg-white text-slate-800 dark:bg-slate-900 dark:text-slate-100">
+    <header class="sticky top-0 z-40 border-b border-slate-200 dark:border-slate-800 bg-white/90 dark:bg-slate-900/90 backdrop-blur">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="h-16 flex items-center justify-between">
+          <a href="#/home" class="flex items-center gap-3">
+            <img src="./assets/icons/favicon.svg" alt="Dev Toolkit" class="h-8 w-8" />
+            <span class="font-semibold text-lg">Dev Toolkit</span>
+          </a>
+          <nav class="hidden md:flex items-center gap-4 text-sm">
+            <a class="nav-link" href="#/prettifier">Code Prettifier</a>
+            <a class="nav-link" href="#/palette">Color Palette</a>
+            <a class="nav-link" href="#/sql-in">SQL ID</a>
+            <a class="nav-link" href="#/markdown">Markdown</a>
+            <a class="nav-link" href="#/uuid">UUID</a>
+            <a class="nav-link" href="#/case">Case Converter</a>
+            <a class="nav-link" href="#/timestamp">Unix Timestamp</a>
+            <a class="nav-link" href="#/json">JSON Tools</a>
+          </nav>
+          <div class="flex items-center gap-2">
+            <button id="themeToggle" class="px-3 py-2 rounded-md border border-slate-200 dark:border-slate-700 text-sm hover:bg-slate-50 dark:hover:bg-slate-800" title="Toggle theme">🌙</button>
+            <button id="mobileMenuBtn" class="md:hidden px-3 py-2 rounded-md border border-slate-200 dark:border-slate-700 text-sm">☰</button>
+          </div>
+        </div>
+        <div id="mobileMenu" class="md:hidden hidden pb-3">
+          <div class="grid grid-cols-2 gap-2 text-sm">
+            <a class="nav-link" href="#/prettifier">Code Prettifier</a>
+            <a class="nav-link" href="#/palette">Color Palette</a>
+            <a class="nav-link" href="#/sql-in">SQL ID</a>
+            <a class="nav-link" href="#/markdown">Markdown</a>
+            <a class="nav-link" href="#/uuid">UUID</a>
+            <a class="nav-link" href="#/case">Case Converter</a>
+            <a class="nav-link" href="#/timestamp">Unix Timestamp</a>
+            <a class="nav-link" href="#/json">JSON Tools</a>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <!-- Home / Intro -->
+      <section id="route-home" class="route">
+        <div class="grid md:grid-cols-3 gap-6">
+          <div class="md:col-span-2">
+            <h1 class="text-2xl font-semibold mb-2">Welcome to Dev Toolkit</h1>
+            <p class="text-slate-600 dark:text-slate-300 mb-6">A collection of zero-backend, in-browser tools for developers. Everything runs locally and works offline after first load.</p>
+            <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
+              <a class="card" href="#/prettifier">Code Prettifier</a>
+              <a class="card" href="#/palette">Color Palette</a>
+              <a class="card" href="#/sql-in">SQL ID Formatter</a>
+              <a class="card" href="#/markdown">Markdown WYSIWYG</a>
+              <a class="card" href="#/uuid">UUID Generator</a>
+              <a class="card" href="#/case">String Case Converter</a>
+              <a class="card" href="#/timestamp">Unix Timestamp Converter</a>
+              <a class="card" href="#/json">JSON Prettifier / Minifier</a>
+            </div>
+          </div>
+          <aside class="space-y-4">
+            <div class="rounded-lg border border-slate-200 dark:border-slate-800 p-4">
+              <h2 class="font-semibold mb-2">Support</h2>
+              <a class="inline-flex items-center justify-center gap-2 px-3 py-2 rounded-md bg-yellow-400 hover:bg-yellow-300 text-black font-medium" href="https://www.buymeacoffee.com/" target="_blank" rel="noopener">☕ Buy Me a Coffee</a>
+            </div>
+            <div class="rounded-lg border border-slate-200 dark:border-slate-800 p-4">
+              <h2 class="font-semibold mb-2">Ad</h2>
+              <div class="text-sm text-slate-500">AdSense placeholder</div>
+              <!-- Google AdSense placeholder: replace with your ad code if desired -->
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <!-- Code Prettifier -->
+      <section id="route-prettifier" class="route hidden">
+        <h2 class="tool-title">Code Prettifier</h2>
+        <div class="mb-3 flex flex-wrap items-center gap-2">
+          <label class="text-sm">Language</label>
+          <select id="prettierLanguage" class="input">
+            <option value="babel">JavaScript</option>
+            <option value="typescript">TypeScript</option>
+            <option value="html">HTML</option>
+            <option value="postcss">CSS</option>
+            <option value="json">JSON</option>
+            <option value="markdown">Markdown</option>
+          </select>
+          <button id="btnPrettify" class="btn">Prettify</button>
+          <button data-copy-target="#prettierInput" class="btn-secondary">Copy</button>
+        </div>
+        <textarea id="prettierInput" class="textarea" placeholder="Paste your code here..."></textarea>
+        <p id="prettierError" class="error-text hidden"></p>
+      </section>
+
+      <!-- Color Palette Generator -->
+      <section id="route-palette" class="route hidden">
+        <h2 class="tool-title">Color Palette Generator</h2>
+        <div class="mb-4 flex flex-wrap items-center gap-2">
+          <input id="paletteBaseColor" type="text" class="input w-40" placeholder="#4f46e5" />
+          <button id="btnPaletteRandom" class="btn">Random</button>
+          <button id="btnPaletteComplementary" class="btn-secondary">Complementary</button>
+          <button id="btnPaletteExport" class="btn-secondary">Export JSON</button>
+        </div>
+        <div id="paletteGrid" class="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4"></div>
+      </section>
+
+      <!-- SQL ID Formatter -->
+      <section id="route-sql-in" class="route hidden">
+        <h2 class="tool-title">SQL ID Formatter</h2>
+        <div class="mb-3 flex items-center gap-3 text-sm">
+          <label class="inline-flex items-center gap-2"><input id="sqlQuote" type="checkbox" class="checkbox"> Wrap in quotes</label>
+          <button id="btnSqlFormat" class="btn">Format</button>
+          <button data-copy-target="#sqlOutput" class="btn-secondary">Copy</button>
+        </div>
+        <div class="grid md:grid-cols-2 gap-4">
+          <textarea id="sqlInput" class="textarea" placeholder="123\n456\n789"></textarea>
+          <textarea id="sqlOutput" class="textarea" readonly placeholder="IN (123, 456, 789)"></textarea>
+        </div>
+      </section>
+
+      <!-- Live Markdown WYSIWYG -->
+      <section id="route-markdown" class="route hidden">
+        <h2 class="tool-title">Live Markdown WYSIWYG</h2>
+        <div class="mb-3 text-sm">
+          <div id="mdToolbar" class="toolbar">
+            <div class="group" role="group" aria-label="Inline styles">
+              <button class="button" data-md-action="bold" title="Bold (Ctrl+B)"><strong>B</strong></button>
+              <button class="button" data-md-action="italic" title="Italic (Ctrl+I)"><em>I</em></button>
+              <button class="button" data-md-action="strike" title="Strikethrough"><span style="text-decoration:line-through">S</span></button>
+              <button class="button" data-md-action="code" title="Inline code">`</button>
+            </div>
+            <div class="group" role="group" aria-label="Blocks">
+              <button class="button" data-md-action="h1" title="# Heading 1">H1</button>
+              <button class="button" data-md-action="h2" title="## Heading 2">H2</button>
+              <button class="button" data-md-action="h3" title="### Heading 3">H3</button>
+              <button class="button" data-md-action="quote" title="> Quote">❝</button>
+              <button class="button" data-md-action="codeblock" title="Code block">```</button>
+              <button class="button" data-md-action="hr" title="Horizontal rule">—</button>
+            </div>
+            <div class="group" role="group" aria-label="Lists">
+              <button class="button" data-md-action="ul" title="Bullet list">•</button>
+              <button class="button" data-md-action="ol" title="Numbered list">1.</button>
+            </div>
+            <div class="group" role="group" aria-label="Links">
+              <button class="button" data-md-action="link" title="Link">🔗</button>
+              <button class="button" data-md-action="image" title="Image">🖼️</button>
+            </div>
+            <span class="spacer"></span>
+            <div class="group" role="group" aria-label="Clipboard">
+              <button id="btnCopyMarkdown" class="button" title="Copy Markdown">Copy</button>
+              <button id="btnExportHtml" class="button" title="Export HTML">Export</button>
+            </div>
+          </div>
+        </div>
+        <div class="grid md:grid-cols-2 gap-4">
+          <textarea id="mdInput" class="textarea" placeholder="# Hello\n\n- Write Markdown on the left\n- Preview on the right"></textarea>
+          <div id="mdPreview" class="prose prose-slate dark:prose-invert max-w-none p-4 rounded-md border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900"></div>
+        </div>
+      </section>
+
+      <!-- UUID Generator -->
+      <section id="route-uuid" class="route hidden">
+        <h2 class="tool-title">UUID v4 Generator</h2>
+        <div class="mb-3 flex items-center gap-2 text-sm">
+          <label>Count</label>
+          <input id="uuidCount" type="number" min="1" max="1000" value="10" class="input w-24" />
+          <button id="btnGenerateUuid" class="btn">Generate</button>
+          <button id="btnCopyUuid" class="btn-secondary">Copy All</button>
+        </div>
+        <textarea id="uuidOutput" class="textarea h-60" readonly></textarea>
+      </section>
+
+      <!-- String Case Converter -->
+      <section id="route-case" class="route hidden">
+        <h2 class="tool-title">String Case Converter</h2>
+        <textarea id="caseInput" class="textarea" placeholder="Enter text here..."></textarea>
+        <div id="caseOutputs" class="grid md:grid-cols-2 gap-4 mt-4"></div>
+      </section>
+
+      <!-- Unix Timestamp ↔ Date Converter -->
+      <section id="route-timestamp" class="route hidden">
+        <h2 class="tool-title">Unix Timestamp ↔ Date Converter</h2>
+        <div class="grid md:grid-cols-2 gap-4">
+          <div class="space-y-2">
+            <label class="text-sm">Unix Timestamp</label>
+            <input id="tsInput" type="text" class="input" placeholder="e.g. 1717171717 or 1717171717000" />
+            <button id="btnTsToDate" class="btn">To Date</button>
+          </div>
+          <div class="space-y-2">
+            <label class="text-sm">Date & Time (local)</label>
+            <input id="dateInput" type="datetime-local" class="input" />
+            <div class="flex gap-2">
+              <button id="btnDateToTs" class="btn">To Timestamp</button>
+              <button id="btnCopyTs" class="btn-secondary">Copy Timestamp</button>
+            </div>
+          </div>
+        </div>
+        <div class="mt-4 grid md:grid-cols-2 gap-4">
+          <div>
+            <label class="text-sm">Readable</label>
+            <input id="tsReadable" type="text" class="input" readonly />
+          </div>
+          <div>
+            <label class="text-sm">Timestamp (seconds | ms)</label>
+            <input id="tsOutput" type="text" class="input" readonly />
+          </div>
+        </div>
+      </section>
+
+      <!-- JSON Prettifier / Minifier -->
+      <section id="route-json" class="route hidden">
+        <h2 class="tool-title">JSON Prettifier / Minifier</h2>
+        <div class="mb-3 flex items-center gap-2 text-sm">
+          <button id="btnJsonPretty" class="btn">Prettify</button>
+          <button id="btnJsonMinify" class="btn-secondary">Minify</button>
+          <button data-copy-target="#jsonInput" class="btn-secondary">Copy</button>
+        </div>
+        <textarea id="jsonInput" class="textarea" placeholder='{"hello":"world"}'></textarea>
+        <p id="jsonError" class="error-text hidden"></p>
+      </section>
+    </main>
+
+    <footer class="mt-12 border-t border-slate-200 dark:border-slate-800">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 text-sm flex flex-col sm:flex-row gap-3 items-center justify-between">
+        <div>
+          Made by <a href="#/home" class="underline decoration-dotted">Your Name</a>
+        </div>
+        <div class="flex items-center gap-3">
+          <a class="inline-flex items-center gap-2 px-3 py-2 rounded-md bg-yellow-400 hover:bg-yellow-300 text-black font-medium" href="https://www.buymeacoffee.com/" target="_blank" rel="noopener">☕ Buy Me a Coffee</a>
+          <a href="https://github.com/" target="_blank" rel="noopener" class="underline decoration-dotted">GitHub</a>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', function () {
+          navigator.serviceWorker.register('./sw.js').catch(console.error);
+        });
+      }
+    </script>
+  </body>
+  </html>
+
